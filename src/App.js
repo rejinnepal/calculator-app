@@ -8,7 +8,7 @@ function App() {
 
   const ops = ['/', '*', '+', '-', '.'];
 
-  const updateCalc = value=>{
+  const updateCalc = value =>{
     if (ops.includes(value) && calc === '' || ops.includes(value) && ops.includes(calc.slice(-1))){
       return;
     }
@@ -18,6 +18,7 @@ function App() {
       setResult(eval(calc + value).toString())
     }
   }
+
   const createDigits = ()=>{
     const digits =[];
     for (let i = 1; i < 10; i++){
@@ -28,17 +29,24 @@ function App() {
 
   const calculate= ()=>{
     setCalc(eval(calc).toString());
+    setResult();
   }
 
   const deleteLast = ()=>{
     if (calc == ''){
       return;
     }
-
     const value = calc.slice(0,-1);
-
     setCalc(value);
+    setResult(value);
   }
+
+  const clearHistory= ()=>{
+    const value = calc.slice(-1,-1);
+    setCalc(value);
+    setResult(0);
+  }
+
   return (
     <div className="App">
       <div className="calculator">
@@ -52,9 +60,10 @@ function App() {
           <button onClick={()=>updateCalc('+')}>+</button>
           <button onClick={()=>updateCalc('-')}>-</button>
           <button onClick={()=>updateCalc('*')}>*</button>
+          <button onClick={()=>clearHistory()}>CE</button>
           <button onClick={deleteLast}>Del</button>
         </div>
-        <div classNmae = "digits">
+        <div className = "digits">
           {createDigits()}
           <button onClick={()=>updateCalc('0')}>0</button>
           <button onClick={()=>updateCalc('.')}>.</button>
